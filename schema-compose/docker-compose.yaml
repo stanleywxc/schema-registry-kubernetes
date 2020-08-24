@@ -1,0 +1,28 @@
+version: '3.5'
+
+services:
+  schema-registry:
+    image: confluentinc/cp-schema-registry:5.3.2
+    container_name: schema-registry-service
+    restart: always
+    ports:
+      - "18081:8081"
+    networks:
+        - schema-registry-net # this network
+        - kafka-net # external network connect kafka-net
+    external_links:
+        - kafka-zookeeper-service:kafka-zookeeper-service
+        - kafka-broker-1:kafka-broker-1
+        - kafka-broker-2:kafka-broker-2
+        - kafka-broker-3:kafka-broker-3
+    environment:
+      - SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL=host.docker.internal:2181
+      - SCHEMA_REGISTRY_HOST_NAME=host.docker.internal
+      - SCHEMA_REGISTRY_LISTENERS=http://0.0.0.0:8081
+      - SCHEMA_REGISTRY_DEBUG=true
+
+networks:
+  schema-registry-net: # this network
+      driver: bridge
+  kafka-net: # external network
+      external: true
