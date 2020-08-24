@@ -16,8 +16,8 @@ services:
         - kafka-broker-2:kafka-broker-2
         - kafka-broker-3:kafka-broker-3
     environment:
-      - SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL=host.docker.internal:2181
-      - SCHEMA_REGISTRY_HOST_NAME=host.docker.internal
+      - SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL=kafka-zookeeper-service:2181
+      - SCHEMA_REGISTRY_HOST_NAME=localhost
       - SCHEMA_REGISTRY_LISTENERS=http://0.0.0.0:8081
       - SCHEMA_REGISTRY_DEBUG=true
 
